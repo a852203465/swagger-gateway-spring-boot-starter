@@ -1,0 +1,82 @@
+# 网关聚合服务Swagger文档
+
+## 1. 说明
+### 1.1 适配说明
+ - 1. zuul, gateway 等网关使用
+ - 2. 已适配 web, webflux
+
+### 1.2 版本说明
+ - knife4j: 3.0.3
+ - swagger: 3.0.0
+ 
+## 2. 使用注意
+ - 由于Spring boot 高版本未更新zuul，所以高版本只能使用zuul-2.2.9.RELEASE版本
+ - jar中已根据环境切换加载方式，只需要引入对应环境的maven即可
+
+## 3. 使用方式
+1. 下载源码 
+ - 下载源码 并install，或者推送到私库引入使用
+2. 引用依赖
+```xml
+        <!-- swagger 文档 -->
+        <dependency>
+            <groupId>cn.darkjrong</groupId>
+            <artifactId>swagger-gateway-spring-boot-starter</artifactId>
+            <version>1.0</version>
+        </dependency>    
+
+        <!-- zuul -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+        </dependency>   
+
+        <!-- gateway -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+```
+
+## 4. 访问
+ - http://ip:port/doc.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
