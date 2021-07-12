@@ -14,19 +14,24 @@ import org.springframework.web.server.ServerWebExchange;
  */
 public class SwaggerHeaderFilter extends AbstractGatewayFilterFactory {
 
-    private static final String HEADER_NAME = "X-Forwarded-Prefix";
- 
+    private final SwaggerGatewayProperties swaggerGatewayProperties;
+
+    public SwaggerHeaderFilter(SwaggerGatewayProperties swaggerGatewayProperties) {
+        this.swaggerGatewayProperties = swaggerGatewayProperties;
+    }
+
     @Override
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             String path = request.getURI().getPath();
-            if (!StringUtils.endsWithIgnoreCase(path, SwaggerUtils.API_URI)) {
+            if (!StringUtils.endsWithIgnoreCase(path, swaggerGatewayProperties.getSwaggerApiDocs())) {
                 return chain.filter(exchange);
             }
-            String basePath = path.substring(0, path.lastIndexOf(SwaggerUtils.API_URI));
+            String basePath = path.substring(0, path.lastIndexOf(swaggerGatewayProperties.getSwaggerApiDocs()));
             String[] basePathArr = {basePath};
-            ServerHttpRequest newRequest = request.mutate().header(HEADER_NAME, basePathArr).build();
+            ServerHttpRequest newRequest = request.mutate().header(swaggerGatewayProperties.getHeaderName(),
+                    basePathArr).build();
             ServerWebExchange newExchange = exchange.mutate().request(newRequest).build();
             return chain.filter(newExchange);
         };

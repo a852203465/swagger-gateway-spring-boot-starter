@@ -3,11 +3,14 @@ package cn.darkjrong.swagger.gateway;
 import com.netflix.zuul.filters.ZuulServletFilter;
 import com.netflix.zuul.http.ZuulServlet;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 /**
@@ -18,16 +21,25 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
  */
 @ComponentScan
 @Configuration
+//@ConditionalOnProperty(name = "swagger.gateway.enabled", matchIfMissing = true)
+@EnableConfigurationProperties(SwaggerGatewayProperties.class)
 public class SwaggerGatewayAutoConfiguration {
+
+    private final SwaggerGatewayProperties swaggerGatewayProperties;
+
+    public SwaggerGatewayAutoConfiguration(SwaggerGatewayProperties swaggerGatewayProperties) {
+        this.swaggerGatewayProperties = swaggerGatewayProperties;
+    }
 
     @Configuration
     @ConditionalOnClass({ZuulServlet.class, ZuulServletFilter.class})
     public class ZuulSwaggerConfiguration {
 
         @Bean
+        @Primary
         public ZuulSwaggerProvider zuulSwaggerProvider(org.springframework.cloud.netflix.zuul.filters.RouteLocator  routeLocator,
                                                        ZuulProperties zuulProperties) {
-            return  new ZuulSwaggerProvider(routeLocator,zuulProperties);
+            return  new ZuulSwaggerProvider(routeLocator,zuulProperties, swaggerGatewayProperties);
         }
 
     }
@@ -37,14 +49,15 @@ public class SwaggerGatewayAutoConfiguration {
     public class GatewaySwaggerConfiguration {
 
         @Bean
+        @Primary
         public GatewaySwaggerProvider gatewaySwaggerProvider(org.springframework.cloud.gateway.route.RouteLocator routeLocator,
                                                              GatewayProperties gatewayProperties) {
-            return new GatewaySwaggerProvider(routeLocator,gatewayProperties);
+            return new GatewaySwaggerProvider(routeLocator,gatewayProperties, swaggerGatewayProperties);
         }
 
         @Bean
         public SwaggerHeaderFilter swaggerHeaderFilter(){
-            return new SwaggerHeaderFilter();
+            return new SwaggerHeaderFilter(swaggerGatewayProperties);
         }
     }
 

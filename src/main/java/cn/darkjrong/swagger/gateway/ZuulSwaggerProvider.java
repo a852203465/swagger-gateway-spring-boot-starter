@@ -19,10 +19,13 @@ public class ZuulSwaggerProvider implements SwaggerResourcesProvider {
 
     private RouteLocator routeLocator;
     private ZuulProperties zuulProperties;
+    private SwaggerGatewayProperties swaggerGatewayProperties;
 
     public ZuulSwaggerProvider(RouteLocator routeLocator,
-                               ZuulProperties zuulProperties) {
+                               ZuulProperties zuulProperties,
+                                  SwaggerGatewayProperties swaggerGatewayProperties) {
         this.routeLocator = routeLocator;
+        this.swaggerGatewayProperties = swaggerGatewayProperties;
         this.zuulProperties = zuulProperties;
     }
 
@@ -38,7 +41,8 @@ public class ZuulSwaggerProvider implements SwaggerResourcesProvider {
         zuulRouteMap.entrySet().stream()
                 .filter(zuulRoute -> routes.contains(zuulRoute.getValue().getId()))
                 .forEach(zuulRoute -> resources.add(SwaggerUtils.swaggerResource(zuulRoute.getKey(),
-                        zuulRoute.getValue().getPath().replace("/**", SwaggerUtils.API_URI))));
+                        zuulRoute.getValue().getPath().replace("/**", swaggerGatewayProperties.getSwaggerApiDocs()),
+                        swaggerGatewayProperties.getSwaggerVersion())));
         return resources;
     }
 

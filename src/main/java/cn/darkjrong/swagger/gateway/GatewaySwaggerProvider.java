@@ -18,10 +18,13 @@ public class GatewaySwaggerProvider implements SwaggerResourcesProvider {
 
     private RouteLocator routeLocator;
     private GatewayProperties gatewayProperties;
+    private SwaggerGatewayProperties swaggerGatewayProperties;
 
     public GatewaySwaggerProvider(RouteLocator routeLocator,
-                                  GatewayProperties gatewayProperties) {
+                                  GatewayProperties gatewayProperties,
+                                  SwaggerGatewayProperties swaggerGatewayProperties) {
         this.routeLocator = routeLocator;
+        this.swaggerGatewayProperties = swaggerGatewayProperties;
         this.gatewayProperties = gatewayProperties;
     }
 
@@ -40,7 +43,8 @@ public class GatewaySwaggerProvider implements SwaggerResourcesProvider {
                         .filter(predicateDefinition -> ("Path").equalsIgnoreCase(predicateDefinition.getName()))
                         .forEach(predicateDefinition -> resources.add(SwaggerUtils.swaggerResource(routeDefinition.getId(),
                                 predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0")
-                                        .replace("/**", SwaggerUtils.API_URI)))));
+                                        .replace("/**", swaggerGatewayProperties.getSwaggerApiDocs()),
+                                swaggerGatewayProperties.getSwaggerVersion()))));
         return resources;
     }
 
