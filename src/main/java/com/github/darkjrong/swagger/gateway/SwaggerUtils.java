@@ -1,4 +1,4 @@
-package cn.darkjrong.swagger.gateway;
+package com.github.darkjrong.swagger.gateway;
 
 import springfox.documentation.swagger.web.SwaggerResource;
 

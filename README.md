@@ -20,7 +20,7 @@
 ```xml
         <!-- swagger 文档 -->
         <dependency>
-            <groupId>cn.darkjrong</groupId>
+            <groupId>com.github.darkjrong</groupId>
             <artifactId>swagger-gateway-spring-boot-starter</artifactId>
             <version>1.0</version>
         </dependency>    

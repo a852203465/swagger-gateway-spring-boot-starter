@@ -1,9 +1,8 @@
-package cn.darkjrong.swagger.gateway;
+package com.github.darkjrong.swagger.gateway;
 
 import com.netflix.zuul.filters.ZuulServletFilter;
 import com.netflix.zuul.http.ZuulServlet;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;

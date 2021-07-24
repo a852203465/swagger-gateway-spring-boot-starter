@@ -1,4 +1,4 @@
-package cn.darkjrong.swagger.gateway;
+package com.github.darkjrong.swagger.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
