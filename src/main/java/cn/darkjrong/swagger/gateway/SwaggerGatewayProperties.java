@@ -1,4 +1,4 @@
-package com.github.darkjrong.swagger.gateway;
+package cn.darkjrong.swagger.gateway;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

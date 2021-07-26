@@ -1,4 +1,4 @@
-package com.github.darkjrong.swagger.gateway;
+package cn.darkjrong.swagger.gateway;
 
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
