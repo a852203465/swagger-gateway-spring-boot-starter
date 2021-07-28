@@ -21,7 +21,7 @@ public class SwaggerGatewayProperties {
     /**
      * swagger api-docs default: /v3/api-docs
      */
-    private String swaggerApiDocs = " /v3/api-docs";
+    private String swaggerApiDocs = "/v3/api-docs";
 
     /**
      *  header Name， 默认： X-Forwarded-Prefix
