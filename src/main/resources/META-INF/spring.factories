@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.darkjrong.swagger.gateway.SwaggerGatewayAutoConfiguration
+    cn.darkjrong.swagger.gateway.SwaggerGatewayAutoConfiguration

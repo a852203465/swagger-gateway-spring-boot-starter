@@ -1,4 +1,4 @@
-package com.github.darkjrong.swagger.gateway;
+package cn.darkjrong.swagger.gateway;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
