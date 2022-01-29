@@ -32,7 +32,6 @@
         <spring-boot.version>2.3.10.RELEASE</spring-boot.version>
         <maven-compiler.version>3.8.1</maven-compiler.version>
         <knife4j.version>3.0.3</knife4j.version>
-        <guava.version>30.0-jre</guava.version>
     </properties>
 
     <dependencies>
@@ -45,10 +44,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
