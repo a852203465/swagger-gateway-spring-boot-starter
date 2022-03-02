@@ -71,6 +71,12 @@
             <version>${knife4j.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>5.7.20</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
