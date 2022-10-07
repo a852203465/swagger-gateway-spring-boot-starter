@@ -3,7 +3,6 @@ package cn.darkjrong.swagger.gateway;
 import com.netflix.zuul.filters.ZuulServletFilter;
 import com.netflix.zuul.http.ZuulServlet;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,15 +19,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
  */
 @ComponentScan
 @Configuration
-//@ConditionalOnProperty(name = "swagger.gateway.enabled", matchIfMissing = true)
-@EnableConfigurationProperties(SwaggerGatewayProperties.class)
 public class SwaggerGatewayAutoConfiguration {
-
-    private final SwaggerGatewayProperties swaggerGatewayProperties;
-
-    public SwaggerGatewayAutoConfiguration(SwaggerGatewayProperties swaggerGatewayProperties) {
-        this.swaggerGatewayProperties = swaggerGatewayProperties;
-    }
 
     @Configuration
     @ConditionalOnClass({ZuulServlet.class, ZuulServletFilter.class})
@@ -37,8 +28,8 @@ public class SwaggerGatewayAutoConfiguration {
         @Bean
         @Primary
         public ZuulSwaggerProvider zuulSwaggerProvider(org.springframework.cloud.netflix.zuul.filters.RouteLocator  routeLocator,
-                                                       ZuulProperties zuulProperties) {
-            return  new ZuulSwaggerProvider(routeLocator,zuulProperties, swaggerGatewayProperties);
+                                                       ZuulProperties zuulProperties, CustomZuulProperties customZuulProperties) {
+            return  new ZuulSwaggerProvider(routeLocator,zuulProperties, customZuulProperties);
         }
 
     }
@@ -50,13 +41,13 @@ public class SwaggerGatewayAutoConfiguration {
         @Bean
         @Primary
         public GatewaySwaggerProvider gatewaySwaggerProvider(org.springframework.cloud.gateway.route.RouteLocator routeLocator,
-                                                             GatewayProperties gatewayProperties) {
-            return new GatewaySwaggerProvider(routeLocator,gatewayProperties, swaggerGatewayProperties);
+                                                             GatewayProperties gatewayProperties, CustomGatewayProperties customGatewayProperties) {
+            return new GatewaySwaggerProvider(routeLocator, gatewayProperties, customGatewayProperties);
         }
 
         @Bean
-        public SwaggerHeaderFilter swaggerHeaderFilter(){
-            return new SwaggerHeaderFilter(swaggerGatewayProperties);
+        public SwaggerHeaderFilter swaggerHeaderFilter(CustomGatewayProperties customGatewayProperties){
+            return new SwaggerHeaderFilter(customGatewayProperties.getSwagger());
         }
     }
 

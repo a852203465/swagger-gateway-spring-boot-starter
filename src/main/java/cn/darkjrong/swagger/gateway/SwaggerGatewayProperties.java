@@ -1,7 +1,6 @@
 package cn.darkjrong.swagger.gateway;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  *
@@ -10,7 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2021/07/12
  */
 @Data
-@ConfigurationProperties(prefix = "swagger.gateway")
 public class SwaggerGatewayProperties {
 
     /**
@@ -23,10 +21,6 @@ public class SwaggerGatewayProperties {
      */
     private String swaggerApiDocs = "/v3/api-docs";
 
-    /**
-     *  header Name， 默认： X-Forwarded-Prefix
-     */
-    private String headerName = "X-Forwarded-Prefix";
 
 
 

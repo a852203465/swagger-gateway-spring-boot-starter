@@ -1,5 +1,7 @@
 package cn.darkjrong.swagger.gateway;
 
+import cn.hutool.core.util.ObjectUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import springfox.documentation.swagger.web.SwaggerResource;
@@ -7,7 +9,6 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 聚合其他微服务的api资源
@@ -15,19 +16,12 @@ import java.util.Map;
  * @author Rong.Jia
  * @date 2021/05/11 13:33
  */
+@AllArgsConstructor
 public class ZuulSwaggerProvider implements SwaggerResourcesProvider {
 
     private RouteLocator routeLocator;
     private ZuulProperties zuulProperties;
-    private SwaggerGatewayProperties swaggerGatewayProperties;
-
-    public ZuulSwaggerProvider(RouteLocator routeLocator,
-                               ZuulProperties zuulProperties,
-                                  SwaggerGatewayProperties swaggerGatewayProperties) {
-        this.routeLocator = routeLocator;
-        this.swaggerGatewayProperties = swaggerGatewayProperties;
-        this.zuulProperties = zuulProperties;
-    }
+    private CustomZuulProperties customZuulProperties;
 
     @Override
     public List<SwaggerResource> get() {
@@ -37,14 +31,29 @@ public class ZuulSwaggerProvider implements SwaggerResourcesProvider {
         //取出gateway的route
         routeLocator.getRoutes().forEach(route -> routes.add(route.getId()));
 
-        Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = zuulProperties.getRoutes();
-        zuulRouteMap.entrySet().stream()
+        zuulProperties.getRoutes().entrySet().stream()
                 .filter(zuulRoute -> routes.contains(zuulRoute.getValue().getId()))
-                .forEach(zuulRoute -> resources.add(SwaggerUtils.swaggerResource(zuulRoute.getKey(),
-                        zuulRoute.getValue().getPath().replace("/**", swaggerGatewayProperties.getSwaggerApiDocs()),
-                        swaggerGatewayProperties.getSwaggerVersion())));
+                .forEach(zuulRoute -> resources.add(SwaggerUtils.swaggerResource(getName(zuulRoute.getKey()),
+                        zuulRoute.getValue().getPath().replace("/**", customZuulProperties.getSwagger().getSwaggerApiDocs()),
+                        customZuulProperties.getSwagger().getSwaggerVersion())));
         return resources;
     }
+
+    /**
+     * 获取名字
+     *
+     * @param key KEY
+     * @return {@link String}
+     */
+    private String getName(String key) {
+        CustomZuulProperties.CustomZuulRoute customZuulRoute = customZuulProperties.getRoutes().get(key);
+        return ObjectUtil.isNotEmpty(customZuulRoute) ? customZuulRoute.getName() : key;
+    }
+
+
+
+
+
 
 
 

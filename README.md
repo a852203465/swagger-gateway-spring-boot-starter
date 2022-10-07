@@ -40,14 +40,16 @@
 
 3. 配置参数(application.properties) yml配置
 ```yaml
-swagger:
-  gateway:
-    # header name， 默认： X-Forwarded-Prefix
-    header-name: X-Forwarded-Prefix
-    # swagger 版本 ，默认： 3.0
-    swagger-version: 3.0
-    # swagger api docs 默认： /v3/api-docs
-    swagger-api-docs: /v3/api-docs
+spring:
+  cloud:
+    gateway:
+      swagger:
+        # header name， 默认： X-Forwarded-Prefix
+        header-name: X-Forwarded-Prefix
+        # swagger 版本 ，默认： 3.0
+        swagger-version: 3.0
+        # swagger api docs 默认： /v3/api-docs
+        swagger-api-docs: /v3/api-docs
 ```
 
 

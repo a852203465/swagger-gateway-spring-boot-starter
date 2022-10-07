@@ -14,10 +14,10 @@ import org.springframework.web.server.ServerWebExchange;
  */
 public class SwaggerHeaderFilter extends AbstractGatewayFilterFactory {
 
-    private final SwaggerGatewayProperties swaggerGatewayProperties;
+    private final CustomGatewayProperties.SwaggerProperties swaggerProperties;
 
-    public SwaggerHeaderFilter(SwaggerGatewayProperties swaggerGatewayProperties) {
-        this.swaggerGatewayProperties = swaggerGatewayProperties;
+    public SwaggerHeaderFilter(CustomGatewayProperties.SwaggerProperties swaggerProperties) {
+        this.swaggerProperties = swaggerProperties;
     }
 
     @Override
@@ -25,12 +25,12 @@ public class SwaggerHeaderFilter extends AbstractGatewayFilterFactory {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             String path = request.getURI().getPath();
-            if (!StringUtils.endsWithIgnoreCase(path, swaggerGatewayProperties.getSwaggerApiDocs())) {
+            if (!StringUtils.endsWithIgnoreCase(path, swaggerProperties.getSwaggerApiDocs())) {
                 return chain.filter(exchange);
             }
-            String basePath = path.substring(0, path.lastIndexOf(swaggerGatewayProperties.getSwaggerApiDocs()));
+            String basePath = path.substring(0, path.lastIndexOf(swaggerProperties.getSwaggerApiDocs()));
             String[] basePathArr = {basePath};
-            ServerHttpRequest newRequest = request.mutate().header(swaggerGatewayProperties.getHeaderName(),
+            ServerHttpRequest newRequest = request.mutate().header(swaggerProperties.getHeaderName(),
                     basePathArr).build();
             ServerWebExchange newExchange = exchange.mutate().request(newRequest).build();
             return chain.filter(newExchange);
