@@ -14,9 +14,9 @@
  - jar中已根据环境切换加载方式，只需要引入对应环境的maven即可
 
 ## 3. 使用方式
-1. 下载源码 
+### 3.1 下载源码 
  - 下载源码 并install，或者推送到私库引入使用
-2. 引用依赖
+### 3.2 引用依赖
 ```xml
         <!-- swagger 文档 -->
         <dependency>
@@ -38,7 +38,8 @@
         </dependency>
 ```
 
-3. 配置参数(application.properties) yml配置
+### 3.3 配置参数(application.properties) yml配置
+#### 3.3.1 Spring Cloud Gateway
 ```yaml
 spring:
   cloud:
@@ -51,7 +52,15 @@ spring:
         # swagger api docs 默认： /v3/api-docs
         swagger-api-docs: /v3/api-docs
 ```
-
+#### 3.3.2 Spring Cloud Zuul
+```yaml
+zuul:
+  swagger:
+    # swagger 版本 ，默认： 3.0
+    swagger-version: 3.0
+    # swagger api docs 默认： /v3/api-docs
+    swagger-api-docs: /v3/api-docs
+```
 
 ## 4. 访问
  - http://ip:port/doc.html
