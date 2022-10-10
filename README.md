@@ -8,6 +8,8 @@
 ### 1.2 版本说明
  - knife4j: 3.0.3
  - swagger: 3.0.0
+ - Spring Cloud: 2020.0.6
+ - Spring Boot: 2.5.7
  
 ## 2. 使用注意
  - 由于Spring boot 高版本未更新zuul，所以高版本只能使用zuul-2.2.9.RELEASE版本
