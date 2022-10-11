@@ -5,7 +5,7 @@
 
     <groupId>cn.darkjrong</groupId>
     <artifactId>swagger-gateway-spring-boot-starter</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <modelVersion>4.0.0</modelVersion>
 
     <description>swagger-gateway-spring-boot-starter</description>
@@ -29,7 +29,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
-        <spring-boot.version>2.5.7</spring-boot.version>
+        <spring-boot.version>2.7.4</spring-boot.version>
         <maven-compiler.version>3.8.1</maven-compiler.version>
         <knife4j.version>3.0.3</knife4j.version>
     </properties>
@@ -92,7 +92,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2020.0.6</version>
+                <version>2021.0.4</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
