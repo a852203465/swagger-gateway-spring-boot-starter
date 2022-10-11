@@ -19,6 +19,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
  * @date 2021/07/09
  */
 @ComponentScan
+@Configuration
 @AutoConfiguration
 public class SwaggerGatewayAutoConfiguration {
 
