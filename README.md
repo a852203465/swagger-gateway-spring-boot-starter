@@ -12,7 +12,6 @@
  - Spring Boot: 2.7.4
  
 ## 2. 使用注意
- - 由于Spring boot 高版本未更新zuul，所以高版本只能使用zuul-2.2.9.RELEASE版本
  - jar中已根据环境切换加载方式，只需要引入对应环境的maven即可
 
 ## 3. 使用方式
@@ -26,12 +25,6 @@
             <artifactId>swagger-gateway-spring-boot-starter</artifactId>
             <version>1.0</version>
         </dependency>    
-
-        <!-- zuul -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-        </dependency>   
 
         <!-- gateway -->
         <dependency>
@@ -53,15 +46,6 @@ spring:
         swagger-version: 3.0
         # swagger api docs 默认： /v3/api-docs
         swagger-api-docs: /v3/api-docs
-```
-#### 3.3.2 Spring Cloud Zuul
-```yaml
-zuul:
-  swagger:
-    # swagger 版本 ，默认： 3.0
-    swagger-version: 3.0
-    # swagger api docs 默认： /v3/api-docs
-    swagger-api-docs: /v3/api-docs
 ```
 
 ## 4. 访问

@@ -1,6 +1,6 @@
 package cn.darkjrong.swagger.gateway;
 
-import org.apache.commons.lang.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -25,7 +25,7 @@ public class SwaggerHeaderFilter extends AbstractGatewayFilterFactory {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             String path = request.getURI().getPath();
-            if (!StringUtils.endsWithIgnoreCase(path, swaggerProperties.getSwaggerApiDocs())) {
+            if (!StrUtil.endWithIgnoreCase(path, swaggerProperties.getSwaggerApiDocs())) {
                 return chain.filter(exchange);
             }
             String basePath = path.substring(0, path.lastIndexOf(swaggerProperties.getSwaggerApiDocs()));
